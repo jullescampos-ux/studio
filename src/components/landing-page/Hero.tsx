@@ -28,7 +28,7 @@ export function Hero() {
             <h1 className="font-headline text-4xl font-bold tracking-tighter text-foreground sm:text-5xl md:text-6xl">
               Cuidado especializado em cirurgia bucomaxilofacial
             </h1>
-            <p className="text-lg text-destructive-foreground md:text-xl">
+            <p className="text-lg text-foreground md:text-xl">
               Agende sua consulta e transforme seu sorriso e bem-estar. Estamos
               prontos para oferecer o melhor tratamento para você.
             </p>
