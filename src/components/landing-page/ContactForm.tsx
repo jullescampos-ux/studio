@@ -1,6 +1,5 @@
 'use client';
 
-import { generateWhatsappLinkAction } from '@/app/actions';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -15,7 +14,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Loader2, MessageSquare, Send } from 'lucide-react';
+import { Loader2, MessageSquare } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
@@ -60,22 +59,29 @@ export function ContactForm() {
   async function onSubmit(values: FormData) {
     setIsLoading(true);
     try {
-      const result = await generateWhatsappLinkAction(values);
-      if (result.whatsappMessage) {
-        // NOTE: Replace with the actual doctor's phone number
-        const doctorPhoneNumber = '5511999999999';
-        const encodedMessage = encodeURIComponent(result.whatsappMessage);
-        const url = `https://wa.me/${doctorPhoneNumber}?text=${encodedMessage}`;
-        window.open(url, '_blank', 'noopener,noreferrer');
-      } else {
-        throw new Error('A mensagem do WhatsApp não foi gerada.');
-      }
+      // NOTE: Replace with the actual doctor's phone number
+      const doctorPhoneNumber = '5511999999999';
+
+      const interests = values.selectedChecks.join('\n- ');
+
+      const message = `Olá!
+Meu nome é ${values.fullName}.
+Estou entrando em contato através do site MaxilloConnect.
+Tenho interesse nos seguintes serviços/sintomas:
+- ${interests}
+
+Gostaria de agendar uma consulta ou obter mais informações.
+Meu telefone para contato é ${values.phoneNumber}.`;
+
+      const encodedMessage = encodeURIComponent(message);
+      const url = `https://wa.me/${doctorPhoneNumber}?text=${encodedMessage}`;
+      window.open(url, '_blank', 'noopener,noreferrer');
     } catch (error) {
       console.error(error);
       toast({
         title: 'Erro',
         description:
-          'Não foi possível gerar a mensagem. Por favor, tente novamente.',
+          'Não foi possível abrir o WhatsApp. Por favor, tente novamente.',
         variant: 'destructive',
       });
     } finally {
@@ -190,7 +196,7 @@ export function ContactForm() {
               {isLoading ? (
                 <>
                   <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                  Gerando mensagem...
+                  Abrindo WhatsApp...
                 </>
               ) : (
                 <>
