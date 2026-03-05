@@ -1,3 +1,16 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "doctor-portrait",
+      "description": "Professional portrait of a male doctor in a light blue shirt, smiling warmly against a blurred background.",
+      "imageUrl": "https://picsum.photos/seed/doc1/600/600",
+      "imageHint": "doctor portrait"
+    },
+    {
+      "id": "hero-background",
+      "description": "A modern and clean medical office interior with soft lighting.",
+      "imageUrl": "https://picsum.photos/seed/office1/1920/1080",
+      "imageHint": "medical office"
+    }
+  ]
 }
